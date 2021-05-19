@@ -1,0 +1,13 @@
+
+spring:
+
+  main:
+    banner-mode: console
+  profiles:
+    active: 'local'
+task:
+  template:
+    allowMultipleTasks: false
+
+
+
