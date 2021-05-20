@@ -11,4 +11,6 @@ public interface TaskGroupRepository {
     Optional<TaskGroup> findById(Integer id);
     TaskGroup save(TaskGroup entity) ;
     Page<TaskGroup> findAll(Pageable page);
+    boolean existsByDoneIsFalseAndProject_Id(Integer groupId);
+
 }
