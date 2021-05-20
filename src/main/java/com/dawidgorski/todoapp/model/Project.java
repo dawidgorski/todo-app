@@ -10,9 +10,9 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String description;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "project")
-    private Set<TaskGroup> groups;
     @OneToMany(mappedBy = "project")
+    private Set<TaskGroup> groups;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "project")
     private Set<ProjectStep> steps;
     public Project() {
     }

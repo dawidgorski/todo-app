@@ -27,7 +27,7 @@ public class TaskGroup {
         return tasks;
     }
 
-     void setTasks(final Set<Task> tasks) {
+     public void setTasks(final Set<Task> tasks) {
         this.tasks = tasks;
     }
 
@@ -54,4 +54,5 @@ public class TaskGroup {
     public void setDone(boolean done) {
         this.done = done;
     }
+
 }
