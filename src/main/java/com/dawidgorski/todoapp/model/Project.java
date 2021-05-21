@@ -17,6 +17,14 @@ public class Project {
     public Project() {
     }
 
+    public Set<ProjectStep> getSteps() {
+        return steps;
+    }
+
+    public void setSteps(Set<ProjectStep> steps) {
+        this.steps = steps;
+    }
+
     public int getId() {
         return id;
     }
