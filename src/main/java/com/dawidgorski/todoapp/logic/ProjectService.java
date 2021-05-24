@@ -7,6 +7,7 @@ import org.springframework.web.context.annotation.RequestScope;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,8 +43,9 @@ public class ProjectService {
                             project.getSteps().stream()
                                     .map(projectStep -> new Task(projectStep.getDescription(), deadline.plusDays(projectStep.getDaysToDeadline()))
                                     ).collect(Collectors.toSet()));
-                    return targetGroup;
-                }).orElseThrow(() -> new IllegalArgumentException(""));
+                    targetGroup.setProject(project);
+                    return taskGroupRepository.save(targetGroup);
+                }).orElseThrow(() -> new IllegalArgumentException("There is no project with given id"));
         return new GroupReadModel(result);
     }
 }
