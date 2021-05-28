@@ -55,4 +55,11 @@ public class TaskGroup {
         this.done = done;
     }
 
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
 }
