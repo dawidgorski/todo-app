@@ -1,6 +1,7 @@
 package com.dawidgorski.todoapp.model.projection;
 
 import com.dawidgorski.todoapp.model.Task;
+import com.dawidgorski.todoapp.model.TaskGroup;
 
 import java.time.LocalDateTime;
 
@@ -8,8 +9,8 @@ public class GroupTaskWriteModel {
     private String description;
     private LocalDateTime deadline;
 
-    public Task toTask(){
-     return new Task(description,deadline);
+    public Task toTask(final TaskGroup group){
+     return new Task(description,deadline,group);
     }
     public String getDescription() {
         return description;

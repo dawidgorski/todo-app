@@ -10,11 +10,12 @@ import org.springframework.context.annotation.ImportResource;
 @Configuration
 public class LogicConfiguration {
     @Bean
-    ProjectService service(
+    ProjectService projectService(
             final TaskGroupRepository taskGroupRepository,
             final ProjectRepository repository,
-            final TaskConfigurationProperties config
+            final TaskConfigurationProperties config,
+            final TaskGroupService taskGroupService
             ){
-        return new ProjectService(taskGroupRepository,repository,config);
+        return new ProjectService(taskGroupRepository,repository,config,taskGroupService);
     }
 }
