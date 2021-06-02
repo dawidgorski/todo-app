@@ -39,7 +39,7 @@ public class Task {
         return id;
     }
 
-    void setId(int id) {
+    void setId(final int id) {
         this.id = id;
     }
 
@@ -47,7 +47,7 @@ public class Task {
         return description;
     }
 
-    public void setDescription(String description) {
+    void setDescription(final String description) {
         this.description = description;
     }
 
@@ -55,14 +55,16 @@ public class Task {
         return done;
     }
 
-    public void setDone(boolean done) {
+    public void setDone(final boolean done) {
         this.done = done;
     }
 
     TaskGroup getGroup() {
         return group;
     }
-
+    void setGroup(final TaskGroup group) {
+        this.group = group;
+    }
     public void setDeadline(LocalDateTime deadline) {
         this.deadline = deadline;
     }
