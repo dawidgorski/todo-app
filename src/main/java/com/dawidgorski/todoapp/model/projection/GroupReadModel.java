@@ -8,35 +8,37 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class GroupReadModel {
+    private int id;
     private String description;
     //Deadline for the latest task
     private LocalDateTime deadline;
     private Set<GroupTaskReadModel> tasks;
 
     public GroupReadModel(TaskGroup source) {
+        id = source.getId();
         description = source.getDescription();
         source.getTasks().stream()
                 .map(Task::getDeadline)
                 .max(LocalDateTime::compareTo)
-                .ifPresent(date ->deadline =date);
+                .ifPresent(date -> deadline = date);
         tasks = source.getTasks().stream()
                 .map(GroupTaskReadModel::new)
                 .collect(Collectors.toSet());
     }
 
-    public Set<GroupTaskReadModel> getTasks() {
-        return tasks;
+    public int getId() {
+        return id;
     }
 
-    public void setTasks(Set<GroupTaskReadModel> tasks) {
-        this.tasks = tasks;
+    public void setId(final int id) {
+        this.id = id;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 
@@ -44,7 +46,15 @@ public class GroupReadModel {
         return deadline;
     }
 
-    public void setDeadline(LocalDateTime deadline) {
+    public void setDeadline(final LocalDateTime deadline) {
         this.deadline = deadline;
+    }
+
+    public Set<GroupTaskReadModel> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(final Set<GroupTaskReadModel> tasks) {
+        this.tasks = tasks;
     }
 }
