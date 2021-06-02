@@ -13,7 +13,7 @@ public class GroupWriteModel {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 
@@ -21,16 +21,17 @@ public class GroupWriteModel {
         return tasks;
     }
 
-    public void setTasks(Set<GroupTaskWriteModel> tasks) {
+    public void setTasks(final Set<GroupTaskWriteModel> tasks) {
         this.tasks = tasks;
     }
-    public TaskGroup toGroup(){
-        var result =new TaskGroup();
+    public TaskGroup toGroup() {
+        var result = new TaskGroup();
         result.setDescription(description);
         result.setTasks(
                 tasks.stream()
                         .map(source ->source.toTask(result))
-                        .collect(Collectors.toSet()));
+                        .collect(Collectors.toSet())
+        );
         return result;
     }
 }
