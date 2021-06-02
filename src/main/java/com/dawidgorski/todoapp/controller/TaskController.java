@@ -15,6 +15,7 @@ import java.util.List;
 
 
 @RestController
+@RequestMapping("/tasks")
 public class TaskController {
     private static final Logger logger = LoggerFactory.getLogger(TaskController.class);
     private final TaskRepository repository;
@@ -23,19 +24,19 @@ public class TaskController {
         this.repository = repository;
     }
 
-    @GetMapping( value ="/tasks", params = {"!sort","!page","!size"})
+    @GetMapping( params = {"!sort","!page","!size"})
     ResponseEntity<List<Task>> readAllTasks(){
         logger.warn("Exposing all the tasks!");
         return ResponseEntity.ok(repository.findAll());
     }
 
-    @GetMapping( value ="/tasks")
+    @GetMapping
     ResponseEntity<List<Task>> readAllTasks(Pageable page){
         logger.warn("Custom pager");
         return ResponseEntity.ok(repository.findAll(page).getContent());
     }
 
-    @GetMapping( value ="/tasks/{id}")
+    @GetMapping( value ="/{id}")
     ResponseEntity<Task> readTask(@PathVariable int id){
         if(repository.findById(id).isEmpty()){
             return ResponseEntity.notFound().build();
@@ -43,8 +44,11 @@ public class TaskController {
         logger.warn("Exposing one task");
         return ResponseEntity.ok(repository.findById(id).get());
     }
-
-    @PutMapping( value = "/tasks/{id}")
+    @GetMapping("/search/done")
+    ResponseEntity <List<Task >>readDoneTasks(@RequestParam(defaultValue = "true") boolean state){
+    return ResponseEntity.ok(repository.findByDone(state));
+    }
+    @PutMapping( value = "/{id}")
     ResponseEntity<Task> updateTask(@PathVariable int id, @RequestBody Task toUpdate){ // requestbody --> zapytanie z formie json, xml albo innej
         if(repository.findById(id).isEmpty()){
             return ResponseEntity.notFound().build();
@@ -57,15 +61,15 @@ public class TaskController {
         logger.warn("task updated");
         return ResponseEntity.ok(toUpdate);
     }
-    @PostMapping(value = "/tasks")
+    @PostMapping
     ResponseEntity<Task> createTask( @RequestBody @Valid Task toCreate){ // requestbody --> zapytanie z formie json, xml albo innej
         repository.save(toCreate);
         Task result =repository.save(toCreate);
         return ResponseEntity.created(URI.create("/"+result.getId())).body(result);
     }
     @Transactional
-    @PatchMapping( value = "/tasks/{id}")
-    public ResponseEntity<Task> patchTask(@PathVariable int id){
+    @PatchMapping( value = "/{id}")
+    public ResponseEntity<Task> toggleTask(@PathVariable int id){
         if(repository.findById(id).isEmpty()){
             return ResponseEntity.notFound().build();
         }
