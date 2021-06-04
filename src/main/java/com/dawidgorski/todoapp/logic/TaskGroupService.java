@@ -1,5 +1,6 @@
 package com.dawidgorski.todoapp.logic;
 
+import com.dawidgorski.todoapp.model.Project;
 import com.dawidgorski.todoapp.model.TaskGroup;
 import com.dawidgorski.todoapp.model.TaskGroupRepository;
 import com.dawidgorski.todoapp.model.TaskRepository;
@@ -11,19 +12,21 @@ import org.springframework.web.context.annotation.RequestScope;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
-@RequestScope
+
 public class TaskGroupService {
     private TaskGroupRepository repository;
     private TaskRepository taskRepository;
 
-    public TaskGroupService(final TaskGroupRepository repository,final TaskRepository taskRepository) {
+    TaskGroupService(final TaskGroupRepository repository, final TaskRepository taskRepository) {
         this.repository = repository;
         this.taskRepository = taskRepository;
     }
 
-    public GroupReadModel createGroup(GroupWriteModel source){
-        TaskGroup result = repository.save(source.toGroup());
+    public GroupReadModel createGroup(final GroupWriteModel source) {
+        return createGroup(source,null);
+    }
+    GroupReadModel createGroup(final GroupWriteModel source, final Project project) {
+        TaskGroup result = repository.save(source.toGroup(project));
         return new GroupReadModel(result);
     }
 
