@@ -4,6 +4,7 @@ import com.dawidgorski.todoapp.model.*;
 import com.dawidgorski.todoapp.model.projection.GroupReadModel;
 import com.dawidgorski.todoapp.model.projection.GroupTaskWriteModel;
 import com.dawidgorski.todoapp.model.projection.GroupWriteModel;
+import com.dawidgorski.todoapp.model.projection.ProjectWriteModel;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.RequestScope;
 
@@ -26,8 +27,8 @@ public class ProjectService {
         this.service = service;
     }
 
-    public Project save(final Project toSave){
-        return projectRepository.save(toSave);
+    public Project save(final ProjectWriteModel toSave){
+        return projectRepository.save(toSave.toProject());
     }
 
     public List<Project> readAll(){
@@ -51,7 +52,7 @@ public class ProjectService {
                                         return task;
                                     })
                                     .collect(Collectors.toSet()));
-                    return service.createGroup(targetGroup);
+                    return service.createGroup(targetGroup,project);
                 }).orElseThrow(() -> new IllegalArgumentException("There is no project with given id"));
     }
 }
