@@ -1,5 +1,6 @@
 package com.dawidgorski.todoapp.model.projection;
 
+import com.dawidgorski.todoapp.model.Project;
 import com.dawidgorski.todoapp.model.TaskGroup;
 
 import java.util.Set;
@@ -24,14 +25,16 @@ public class GroupWriteModel {
     public void setTasks(final Set<GroupTaskWriteModel> tasks) {
         this.tasks = tasks;
     }
-    public TaskGroup toGroup() {
+
+    public TaskGroup toGroup(final Project project) {
         var result = new TaskGroup();
         result.setDescription(description);
         result.setTasks(
                 tasks.stream()
-                        .map(source ->source.toTask(result))
+                        .map(source -> source.toTask(result))
                         .collect(Collectors.toSet())
         );
+        result.setProject(project);
         return result;
     }
 }
