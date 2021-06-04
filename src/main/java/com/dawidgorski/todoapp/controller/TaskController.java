@@ -38,11 +38,12 @@ public class TaskController {
 
     @GetMapping( value ="/{id}")
     ResponseEntity<Task> readTask(@PathVariable int id){
-        if(repository.findById(id).isEmpty()){
+        var result = repository.findById(id);
+        if(result.isEmpty()){
             return ResponseEntity.notFound().build();
         }
         logger.warn("Exposing one task");
-        return ResponseEntity.ok(repository.findById(id).get());
+        return ResponseEntity.ok(result.get());
     }
     @GetMapping("/search/done")
     ResponseEntity <List<Task >>readDoneTasks(@RequestParam(defaultValue = "true") boolean state){
