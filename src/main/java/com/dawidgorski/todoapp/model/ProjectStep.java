@@ -9,7 +9,7 @@ public class ProjectStep {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private int id;
-    @NotBlank(message = "must be not null")
+    @NotBlank(message = "Project step must be not null")
     private String description;
     @ManyToOne
     @JoinColumn(name = "project_id")
@@ -23,7 +23,7 @@ public class ProjectStep {
         return id;
     }
 
-    public void setId(int id) {
+    void setId(int id) {
         this.id = id;
     }
 
@@ -35,11 +35,19 @@ public class ProjectStep {
         this.description = description;
     }
 
-    public long getDaysToDeadline() {
+    public int getDaysToDeadline() {
         return daysToDeadline;
     }
 
     public void setDaysToDeadline(int daysToDeadline) {
         this.daysToDeadline = daysToDeadline;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+     public void setProject(final Project project) {
+        this.project = project;
     }
 }
