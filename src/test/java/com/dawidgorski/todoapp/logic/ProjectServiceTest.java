@@ -42,7 +42,7 @@ class ProjectServiceTest {
                 .map(days -> {
                     var step = mock(ProjectStep.class);
                     when(step.getDescription()).thenReturn("foo");
-                    when(step.getDaysToDeadline()).thenReturn(Long.valueOf(days));
+                    when(step.getDaysToDeadline()).thenReturn(Integer.valueOf(days));
                     return step;
                 }).collect(Collectors.toSet());
         var result = mock(Project.class);
@@ -173,10 +173,6 @@ class ProjectServiceTest {
             return entity;
         }
 
-        @Override
-        public Page<TaskGroup> findAll(Pageable page) {
-            return null;
-        }
 
         @Override
         public boolean existsByDoneIsFalseAndProject_Id(final Integer projectId) {
